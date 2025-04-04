@@ -54,6 +54,25 @@ async function run() {
             res.send(result);
         })
 
+        // Sorting by Category and date
+        app.get('/raw', async (req, res) => {
+            const cursor = videoCollection.find({ category: "Raw" }).sort({ date: -1 });
+            const result = await cursor.toArray();
+            res.send(result)
+        })
+
+        app.get('/SmackDown', async (req, res) => {
+            const cursor = videoCollection.find({ category: "SmackDown" }).sort({ date: -1 });
+            const result = await cursor.toArray();
+            res.send(result)
+        })
+
+        app.get('/PPV', async (req, res) => {
+            const cursor = videoCollection.find({ category: "PPV" }).sort({ date: -1 });
+            const result = await cursor.toArray();
+            res.send(result)
+        })
+
 
     } finally {
         // Ensures that the client will close when you finish/error
