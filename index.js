@@ -73,6 +73,34 @@ async function run() {
             res.send(result)
         })
 
+        // Manage videso
+
+        app.delete('/video/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const result = await videoCollection.deleteOne(query);
+            res.send(result);
+        })
+
+        app.patch('/video/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id) };
+            const updatedVideo = req.body;
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    title: updatedVideo.title,
+                    description: updatedVideo.description,
+                    category: updatedVideo.category,
+                    date: updatedVideo.date,
+                    thumbnail: updatedVideo.thumbnail,
+                    videoUrl: updatedVideo.videoUrl
+                },
+            };
+            const result = await videoCollection.updateOne(query, updateDoc, options);
+            res.send(result);
+        })
+
 
     } finally {
         // Ensures that the client will close when you finish/error
