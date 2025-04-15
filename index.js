@@ -42,7 +42,7 @@ async function run() {
         })
 
         app.get('/videos', async (req, res) => {
-            const cursor = videoCollection.find();
+            const cursor = videoCollection.find().sort({ date: -1 });
             const result = await cursor.toArray();
             res.send(result)
         })
