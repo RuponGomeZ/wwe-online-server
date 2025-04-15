@@ -95,7 +95,7 @@ async function run() {
                     date: updatedVideo.date,
                     thumbnail: updatedVideo.thumbnail,
                     video: updatedVideo.video,
-                    size: updatedSize.size,
+                    size: updatedVideo.size,
                 },
             };
             const result = await videoCollection.updateOne(query, updateDoc, options);
