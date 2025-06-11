@@ -1,17 +1,20 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const port = process.env.PORT || 5000;
 
 const app = express();
-app.use(cors());
+const corsOption = ['http://localhost:5173',
+    'https://watch-wwe-online.web.app',
+    'https://watch-wwe-online-server-4v8reoj2i-rupongomezs-projects.vercel.app'];
+app.use(cors(corsOption))
 app.use(express.json());
 
 // name 
 // pass C3jmAc18jzVViH4g
 
 
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ycnw9n2.mongodb.net/?appName=Cluster0`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -29,7 +32,7 @@ async function run() {
         // await client.connect();
         // Send a ping to confirm a successful connection
         // await client.db("admin").command({ ping: 1 });
-        console.log("Pinged your deployment. You successfully connected to MongoDB!");
+        // console.log("Pinged your deployment. You successfully connected to MongoDB!");
 
         const database = client.db("watch-wwe");
         const videoCollection = database.collection("videos")
@@ -117,6 +120,6 @@ app.get('/', (req, res) => {
     res.send('WWE IS RUNNING')
 })
 app.listen(port, () => {
-    console.log(`server is running on ${port}`);
+    // console.log(`server is running on ${port}`);
 
 })
